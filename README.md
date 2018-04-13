@@ -29,7 +29,7 @@ The goals / steps of this project are the following:
 
 I trained the model using the labeled data for [vehicle](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/vehicles.zip) and [non-vehicle](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/non-vehicles.zip) examples. These example images come from a combination of the [GTI vehicle image database](http://www.gti.ssr.upm.es/data/Vehicle_database.html), the [KITTI vision benchmark suite](http://www.cvlibs.net/datasets/kitti/), and examples extracted from the project video itself.
 
-To train the model, download the labeled under `./train_data`.
+To train the model, download the labeled data and save under `./train_data`.
 
 ---
 
@@ -89,19 +89,17 @@ The goal was to tune the parameters to maxmize the accuracy while minimize the f
 | hist_bins     | 8             |
 | hist_range    | (0.1,0.5)     |
 
-I obtained a training accuracy of 0.9963 and test accuracy of 0.9955 with these parameters. It took 0.00084s to predict 10 labels.
-
-I implemented this step in cell # of `vehicle_detction.ipynb`.
+I implemented this step in cell 15 to 16 of `vehicle_detction.ipynb`.
 
 #### 5. Train the classifier
 
-I used the `RobustScaler()` from `sklearn` package to normalize the data, then trained a linear SVM using a combination of HOG, spatial binning, and color histogram features. 
+I used the `RobustScaler()` from `sklearn` package to normalize the data, then trained a linear SVM using a combination of HOG, spatial binning, and color histogram features. I obtained a training accuracy of 0.9963 and test accuracy of 0.9955 with these parameters. It took 0.00084s to predict 10 labels.
 
 Following is an example the raw and normalized features:
 
 ![alt text][image7]
 
-I did this in cell 16 of `vehicle_detction.ipynb`.
+I did this in cell 19 to 22 of `vehicle_detction.ipynb`.
 
 
 ### Sliding Window Search
@@ -124,7 +122,7 @@ Here's an example of the multi-scale windows:
 
 ![alt text][image9]
 
-I did this in cell 33 of `vehicle detection.ipynb`.
+I did this in cell 29 of `vehicle detection.ipynb`.
 
 
 #### 2. Pipeline Results
@@ -132,6 +130,8 @@ I did this in cell 33 of `vehicle detection.ipynb`.
 Ultimately I searched on 4 scales using YCrCb 3-channel HOG features plus spatially binned color and histograms of color in the feature vector, which provided a nice result.  Here are some example images:
 
 ![alt text][image8]
+
+I did this step in cell 36 of `vehicle_detection.ipynb`.
 
 
 ---
@@ -145,12 +145,13 @@ Here's a [link to my video result](./test_videos_output/project_video.mp4)
 #### 2. Multiple detections and false positives
 When the classifier reports postive detections, there are very likely to be multiple of them overlapping with each other on the vehicle. False positive detections are found on the guardrail to the left, yellow lane line, and the shadows on road surface. 
 
-By adding "heat"(+=1) for all positive detections, I built heap-maps to overcome these two problems. The "hot" parts of the map are where the cars are, and by imposing a threshold, I can reject areas affected by false positive. I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap. I did this in cell # of `vehicle_detection.ipynb`.
+By adding "heat"(+=1) for all positive detections, I built heap-maps to overcome these two problems. The "hot" parts of the map are where the cars are, and by imposing a threshold, I can reject areas affected by false positive. I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heat map. I further integrated a heat map over 20 frames of video, then threshold the heatmap to remove false positive.
 
-Here are six frames and their corresponding heatmaps, output of `scipy.ndimage.measurements.label()` on heatmaps, and the resulting bounding boxes are drawn onto the last frame in the series:
+Here are six frames and their corresponding heatmaps, output of `scipy.ndimage.measurements.label()` on heat map, and the resulting bounding boxes are drawn onto the last frame in the series:
 
 ![alt text][image11]
 
+ I did this in cell 32 to 33 of `vehicle_detection.ipynb`.
 
 ---
 
@@ -169,6 +170,6 @@ The system might fail in real time, it took around 8 minutes to finish processin
 
 I might want to try the following in future:
 
-* add vehicle detection to the Advanced Finding Lane Line Project
-* use deep learning approach for vehicle detection
-* augment the training data with [Udacity labeled dataset](https://github.com/udacity/self-driving-car/tree/master/annotations)
+* Add vehicle detection to the Advanced Finding Lane Line Project
+* Use deep learning approach for vehicle detection
+* Augment the training data with [Udacity labeled dataset](https://github.com/udacity/self-driving-car/tree/master/annotations)
