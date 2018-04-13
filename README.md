@@ -1,4 +1,4 @@
-## Vehicle Detection Project**
+## Vehicle Detection Project
 
 The goals / steps of this project are the following:
 
@@ -21,6 +21,15 @@ The goals / steps of this project are the following:
 [image9]: ./examples/multi_scale.png
 [image10]: ./examples/slide_window.png
 [image11]: ./examples/heatmap.png
+[image12]: ./examples/test_video.gif
+
+![alt text][image12]
+
+### Dataset
+
+I trained the model using the labeled data for [vehicle](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/vehicles.zip) and [non-vehicle](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/non-vehicles.zip) examples. These example images come from a combination of the [GTI vehicle image database](http://www.gti.ssr.upm.es/data/Vehicle_database.html), the [KITTI vision benchmark suite](http://www.cvlibs.net/datasets/kitti/), and examples extracted from the project video itself.
+
+To train the model, download the labeled under `./train_data`.
 
 ---
 
@@ -156,4 +165,10 @@ To overcome, I optimized the sliding window approach with HOG sub-sampling, mult
 
 #### 2. Future works
 
-The system might fail in real time, it took around 8 minutes to finish processing a 1 minute video. I might want to add vehicle detection to the Advanced Finding Lane Line Project, and use deep learning approach for vehicle detection in future.
+The system might fail in real time, it took around 8 minutes to finish processing a 1 minute video. 
+
+I might want to try the following in future:
+
+* add vehicle detection to the Advanced Finding Lane Line Project
+* use deep learning approach for vehicle detection
+* augment the training data with [Udacity labeled dataset](https://github.com/udacity/self-driving-car/tree/master/annotations)
