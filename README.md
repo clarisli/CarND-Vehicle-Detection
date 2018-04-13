@@ -21,6 +21,7 @@ The goals / steps of this project are the following:
 [image9]: ./examples/multi_scale.png
 [image10]: ./examples/slide_window.png
 [image11]: ./examples/heatmap.png
+
 ---
 
 ### Data Exploration
